@@ -1,3 +1,9 @@
+import 'package:app_donut_angel/tabs/burger_tab.dart';
+import 'package:app_donut_angel/tabs/donut_tab.dart';
+import 'package:app_donut_angel/tabs/pancakes_tab.dart';
+import 'package:app_donut_angel/tabs/pizza.tab.dart';
+import 'package:app_donut_angel/tabs/smoothie_tab.dart';
+import 'package:app_donut_angel/utils/my_tab.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,9 +14,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Widget> myTabs = [
+    const MyTab(iconPath: 'lib/icon/donut.png'),
+    const MyTab(iconPath: 'lib/icon/burger.png'),
+    const MyTab(iconPath: 'lib/icon/smoothie.png'),
+    const MyTab(iconPath: 'lib/icon/pancakes.png'),
+    const MyTab(iconPath: 'lib/icon/pizza.png'),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(
+      length: myTabs.length,
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           //icono izquierdo
@@ -22,10 +38,10 @@ class _HomePageState extends State<HomePage> {
             )
           ],
         ),
-        body: const Column(
+        body: Column(
           children: [
             //texto principal
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 36, vertical: 18),
               child: Row(
                 children: [
@@ -41,15 +57,27 @@ class _HomePageState extends State<HomePage> {
                   Text("healthy"),
                 ],
               ),
+            ),
+            //prestañas(TabBar)
+            TabBar(tabs: myTabs),
+
+            Expanded(
+              child: TabBarView(
+                children: [
+                  DonutTab(),
+                  BurgerTab(),
+                  SmoothieTab(),
+                  PancakesTab(),
+                  PizzaTab(),
+                ],
+              ),
             )
+            //Contenido de pestañas (TabBarView)
+
+            //Carrito(cart)
           ],
-        )
-        //prestañas(TabBar)
-
-        //Contenido de pestañas (TabBarView)
-
-        //Carrito(cart)
-
-        );
+        ),
+      ),
+    );
   }
 }
