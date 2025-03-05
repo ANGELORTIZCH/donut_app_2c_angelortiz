@@ -54,7 +54,7 @@ class _HomePageState extends State<HomePage> {
                         decoration: TextDecoration.underline),
                   ),
                   SizedBox(width: 16),
-                  Text("healthy"),
+                  Text(""),
                 ],
               ),
             ),

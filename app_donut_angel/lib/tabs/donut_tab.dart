@@ -1,3 +1,4 @@
+import 'package:app_donut_angel/utils/donut_tile.dart';
 import 'package:flutter/material.dart';
 
 class DonutTab extends StatelessWidget {
@@ -22,6 +23,8 @@ class DonutTab extends StatelessWidget {
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           //Cuántas columnas
           crossAxisCount: 2,
+          //Relación de aspecto(proporción)
+          childAspectRatio: 1 / 1.5,
         ),
         itemBuilder: (context, index) {
           return DonutTile(
