@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
     const MyTab(iconPath: 'lib/icons/pizza.png'),
   ];
 
-// Estado del carrito
+  // Estado del carrito
   List<Product> cartItems = [];
   double totalPrice = 0.0;
 
@@ -42,18 +42,17 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          //icono izquierdo
-          leading: Icon(Icons.menu, color: Colors.grey[800]), //icono derecho
+          leading: Icon(Icons.menu, color: Colors.grey[800]), // Icono izquierdo
           actions: const [
             Padding(
               padding: EdgeInsets.only(right: 24.0),
-              child: Icon(Icons.person),
-            )
+              child: Icon(Icons.person), // Icono derecho
+            ),
           ],
         ),
         body: Column(
           children: [
-            //texto principal
+            // Texto principal
             const Padding(
               padding: EdgeInsets.symmetric(horizontal: 36, vertical: 18),
               child: Row(
@@ -73,14 +72,13 @@ class _HomePageState extends State<HomePage> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 16),
-                  Text(""),
                 ],
               ),
             ),
-            //prestañas(TabBar)
+            // Pestañas (TabBar)
             TabBar(tabs: myTabs),
 
+            // Contenido de pestañas (TabBarView)
             Expanded(
               child: TabBarView(
                 children: [
@@ -92,56 +90,61 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            //Contenido de pestañas (TabBarView)
 
-            //Carrito(cart)
+            // Carrito (cart)
             Container(
-                color: Colors.white,
-                padding: EdgeInsets.all(16),
-                child: Row(
-                  // Esto alinea los elementos a los extremos
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: Column(
-                        // Alinear horizontalmente una columna
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("2 Items| \$45",
-                              style: TextStyle(
-                                  fontSize: 18, fontWeight: FontWeight.bold)),
-                          Text("Delivery Charger Included"),
-                        ],
+              color: Colors.white,
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(18.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "${cartItems.length} items | \$${totalPrice.toStringAsFixed(2)}",
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const Text("Delivery Charge Included"),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      // Aquí puedes agregar la lógica para mostrar el carrito
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.pink,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 24,
+                        vertical: 12,
                       ),
                     ),
-                    ElevatedButton(
-                        onPressed: () {},
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.pink,
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 24,
-                              vertical: 12,
-                            )),
-                        child: const Row(
-                          children: [
-                            Icon(
-                              Icons.shopping_cart,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "View Cart",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ],
-                        ))
-                  ],
-                ))
+                    child: const Row(
+                      children: [
+                        Icon(
+                          Icons.shopping_cart,
+                          color: Colors.white,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          "View Cart",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
