@@ -1,69 +1,71 @@
+import 'package:app_donut_angel/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:app_donut_angel/utils/donut_tile.dart';
 
 class PancakesTab extends StatelessWidget {
+  final Function(Product) addToCart;
   //Lista de donas
-  final List donutsOnSale = [
+  final List pancakeOnSale = [
     // [ donutFlavor, donutPrice, donutColor, imageName ]
     [
-      "Ice Cream",
-      "Krispy Kreme",
-      "36",
+      "Traditional",
+      "Best Seller",
+      "89",
       Colors.blue,
-      "lib/images/icecream_donut.png"
+      "lib/images/pancake1.png"
     ],
     [
-      "Strawberry",
-      "Dunkin Donuts",
-      "45",
-      Colors.red,
-      "lib/images/strawberry_donut.png"
+      "ChocoWaffle",
+      "Best Seller",
+      "49",
+      Colors.blue,
+      "lib/images/pancake2.png"
     ],
     [
-      "Grape Ape",
-      "El Globo",
-      "84",
-      Colors.purple,
-      "lib/images/grape_donut.png"
+      "Vanilla Waffle",
+      "Best Seller",
+      "89",
+      Colors.blue,
+      "lib/images/pancake3.png"
     ],
     [
-      "Choco",
-      "Starbucks",
+      "Nutella Waffle",
+      "Best Seller",
+      "99",
+      Colors.blue,
+      "lib/images/pancake4.png"
+    ],
+    [
+      "Fudge Waffle",
+      "Best Seller",
       "95",
-      Colors.brown,
-      "lib/images/chocolate_donut.png"
-    ],
-    ["Choco", "Starbucks", "95", Colors.pink, "lib/images/chocolate_donut.png"],
-    [
-      "Choco",
-      "Starbucks",
-      "95",
-      Colors.lightBlue,
-      "lib/images/chocolate_donut.png"
+      Colors.blue,
+      "lib/images/pancake5.png"
     ],
     [
-      "Choco",
-      "Starbucks",
+      "Cloud Waffle",
+      "Best Seller",
       "95",
-      Colors.yellowAccent,
-      "lib/images/chocolate_donut.png"
+      Colors.blue,
+      "lib/images/pancake6.png"
     ],
     [
-      "Choco",
-      "Starbucks",
+      "Fruit Waffle",
+      "Best Seller",
       "95",
-      Colors.orange,
-      "lib/images/chocolate_donut.png"
+      Colors.blue,
+      "lib/images/pancake7.png"
     ],
+    ["Buttermilk", "Best Seller", "95", Colors.blue, "lib/images/pancake8.png"],
   ];
-  PancakesTab({super.key});
+  PancakesTab({super.key, required this.addToCart});
 
   @override
   Widget build(BuildContext context) {
     //Widget para usar cuadrícula
     return GridView.builder(
         //Cuántos elementos hay
-        itemCount: donutsOnSale.length,
+        itemCount: pancakeOnSale.length,
         padding: EdgeInsets.all(12),
         //cómo se distrubuirán los elementos
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -74,12 +76,18 @@ class PancakesTab extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return DonutTile(
-            donutFlavor: donutsOnSale[index][0],
-            donutName: donutsOnSale[index][1],
-            donutPrice: donutsOnSale[index][2],
-            donutColor: donutsOnSale[index][3],
-            imageName: donutsOnSale[index][4],
-          );
+              donutFlavor: pancakeOnSale[index][0],
+              donutName: pancakeOnSale[index][1],
+              donutPrice: pancakeOnSale[index][2],
+              donutColor: pancakeOnSale[index][3],
+              imageName: pancakeOnSale[index][4],
+              onAddToCart: () {
+                double price = double.parse(pancakeOnSale[index][2]);
+                addToCart(Product(
+                  name: pancakeOnSale[index][0],
+                  price: price,
+                ));
+              });
         });
   }
 }

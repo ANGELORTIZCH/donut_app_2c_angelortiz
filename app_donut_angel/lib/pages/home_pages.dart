@@ -1,3 +1,4 @@
+import 'package:app_donut_angel/models/product.dart';
 import 'package:app_donut_angel/tabs/burger_tab.dart';
 import 'package:app_donut_angel/tabs/donut_tab.dart';
 import 'package:app_donut_angel/tabs/pancakes_tab.dart';
@@ -22,6 +23,18 @@ class _HomePageState extends State<HomePage> {
     const MyTab(iconPath: 'lib/icons/pizza.png'),
   ];
 
+// Estado del carrito
+  List<Product> cartItems = [];
+  double totalPrice = 0.0;
+
+  // Método para agregar un producto al carrito
+  void addToCart(Product product) {
+    setState(() {
+      cartItems.add(product);
+      totalPrice += product.price;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -45,13 +58,20 @@ class _HomePageState extends State<HomePage> {
               padding: EdgeInsets.symmetric(horizontal: 36, vertical: 18),
               child: Row(
                 children: [
-                  Text("I want to ", style: TextStyle(fontSize: 32)),
                   Text(
-                    "Eat",
+                    "Eaters",
                     style: TextStyle(
-                        fontSize: 32,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline),
+                      fontFamily: "Lexend",
+                      fontSize: 32,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    "App",
+                    style: TextStyle(
+                      fontSize: 32,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   SizedBox(width: 16),
                   Text(""),
@@ -64,11 +84,11 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: TabBarView(
                 children: [
-                  DonutTab(),
-                  BurgerTab(),
-                  SmoothieTab(),
-                  PancakesTab(),
-                  PizzaTab(),
+                  DonutTab(addToCart: addToCart),
+                  BurgerTab(addToCart: addToCart),
+                  SmoothieTab(addToCart: addToCart),
+                  PancakesTab(addToCart: addToCart),
+                  PizzaTab(addToCart: addToCart),
                 ],
               ),
             ),

@@ -7,6 +7,7 @@ class DonutTile extends StatelessWidget {
   // Es dynamic porque será de tipo color
   final dynamic donutColor;
   final String imageName;
+  final VoidCallback onAddToCart;
 
   const DonutTile({
     super.key,
@@ -15,18 +16,21 @@ class DonutTile extends StatelessWidget {
     required this.donutPrice,
     required this.donutColor,
     required this.imageName,
+    required this.onAddToCart,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(10.0),
+      padding: const EdgeInsets.all(6.0),
       child: Container(
         decoration: BoxDecoration(
           color: donutColor[50],
           borderRadius: BorderRadius.circular(24),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize
+              .min, // Evita que la columna ocupe más espacio del necesario
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -55,39 +59,44 @@ class DonutTile extends StatelessWidget {
               ],
             ),
             // Donut Picture
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24,
-                vertical: 12,
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24,
+                  vertical: 12,
+                ),
+                child: Image.asset(imageName, fit: BoxFit.contain),
               ),
-              child: Image.asset(imageName),
             ),
             // Donut Flavor Text
             Text(
               donutFlavor,
-              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+              style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
-            const SizedBox(
-              height: 1,
-            ),
-            // TODO: AGREGAR TEXTO DE LA TIENDA DE DONAS
+            const SizedBox(height: 1),
+            // Texto de la tienda
             Text(
               donutName,
               style: const TextStyle(fontSize: 12),
             ),
-            // Ícono de corazón en la parte inferior izquierda
+            // Ícono de corazón + Botón Add
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Icon(Icons.favorite),
-                  const Text(
-                    "Add",
-                    style: TextStyle(
+                  const Icon(Icons.favorite_border),
+                  GestureDetector(
+                    onTap: onAddToCart,
+                    child: const Text(
+                      "Add",
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                        decoration: TextDecoration.underline),
+                        fontSize: 14,
+                        decoration: TextDecoration.underline,
+                        color: Colors.black,
+                      ),
+                    ),
                   ),
                 ],
               ),

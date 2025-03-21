@@ -1,69 +1,47 @@
+import 'package:app_donut_angel/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:app_donut_angel/utils/donut_tile.dart';
 
 class PizzaTab extends StatelessWidget {
+  final Function(Product) addToCart;
   //Lista de donas
-  final List donutsOnSale = [
+  final List pizzaOnSale = [
     // [ donutFlavor, donutPrice, donutColor, imageName ]
+    ["Margarita", "Best Seller", "199", Colors.brown, "lib/images/pizza1.png"],
+    ["Hawaiian", "Best Seller", "189", Colors.brown, "lib/images/pizza2.png"],
+    ["Pepperoni", "Best Seller", "199", Colors.brown, "lib/images/pizza3.png"],
+    ["MeatLover", "Best Seller", "149", Colors.brown, "lib/images/pizza4.png"],
+    ["Mushroom", "Best Seller", "189", Colors.brown, "lib/images/pizza5.png"],
     [
-      "Ice Cream",
-      "Krispy Kreme",
-      "36",
-      Colors.blue,
-      "lib/images/icecream_donut.png"
-    ],
-    [
-      "Strawberry",
-      "Dunkin Donuts",
-      "45",
-      Colors.red,
-      "lib/images/strawberry_donut.png"
-    ],
-    [
-      "Grape Ape",
-      "El Globo",
-      "84",
-      Colors.purple,
-      "lib/images/grape_donut.png"
-    ],
-    [
-      "Choco",
-      "Starbucks",
-      "95",
+      "Veggie Bite",
+      "Best Seller",
+      "169",
       Colors.brown,
-      "lib/images/chocolate_donut.png"
-    ],
-    ["Choco", "Starbucks", "95", Colors.pink, "lib/images/chocolate_donut.png"],
-    [
-      "Choco",
-      "Starbucks",
-      "95",
-      Colors.lightBlue,
-      "lib/images/chocolate_donut.png"
+      "lib/images/pizza6.png"
     ],
     [
-      "Choco",
-      "Starbucks",
-      "95",
-      Colors.yellowAccent,
-      "lib/images/chocolate_donut.png"
+      "Tomato Pizza",
+      "Best Seller",
+      "159",
+      Colors.brown,
+      "lib/images/pizza7.png"
     ],
     [
-      "Choco",
-      "Starbucks",
-      "95",
-      Colors.orange,
-      "lib/images/chocolate_donut.png"
+      "Alfredo Taste",
+      "Best Seller",
+      "199",
+      Colors.brown,
+      "lib/images/pizza8.png"
     ],
   ];
-  PizzaTab({super.key});
+  PizzaTab({super.key, required this.addToCart});
 
   @override
   Widget build(BuildContext context) {
     //Widget para usar cuadrícula
     return GridView.builder(
         //Cuántos elementos hay
-        itemCount: donutsOnSale.length,
+        itemCount: pizzaOnSale.length,
         padding: EdgeInsets.all(12),
         //cómo se distrubuirán los elementos
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -74,12 +52,18 @@ class PizzaTab extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return DonutTile(
-            donutFlavor: donutsOnSale[index][0],
-            donutName: donutsOnSale[index][1],
-            donutPrice: donutsOnSale[index][2],
-            donutColor: donutsOnSale[index][3],
-            imageName: donutsOnSale[index][4],
-          );
+              donutFlavor: pizzaOnSale[index][0],
+              donutName: pizzaOnSale[index][1],
+              donutPrice: pizzaOnSale[index][2],
+              donutColor: pizzaOnSale[index][3],
+              imageName: pizzaOnSale[index][4],
+              onAddToCart: () {
+                double price = double.parse(pizzaOnSale[index][2]);
+                addToCart(Product(
+                  name: pizzaOnSale[index][0],
+                  price: price,
+                ));
+              });
         });
   }
 }
